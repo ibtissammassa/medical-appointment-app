@@ -40,9 +40,9 @@ To manage the "Race Condition" where two users attempt to book the same slot sim
 Clone the repository and start the services using **Docker Compose**.
 
 ```bash
-> git clone https://github.com/ibtissammassa/medical-appointment-app.git
-> cd medical-appointment-app
-> docker-compose up -d --build
+git clone https://github.com/ibtissammassa/medical-appointment-app.git
+cd medical-appointment-app
+docker-compose up -d --build
 ```
 
 ### 2. Backend Initialization
@@ -50,16 +50,16 @@ Clone the repository and start the services using **Docker Compose**.
 Run migrations to set up the schema and seed the database with initial doctor data.
 
 ```bash
-> docker-compose exec app composer install
-> docker-compose exec app php artisan migrate --seed
+docker-compose exec app composer install
+docker-compose exec app php artisan migrate --seed
 ```
 
 ### 3. Frontend Initialization
 
 ```bash
-> cd frontend
-> npm install
-> npm run dev
+cd frontend
+npm install
+npm run dev
 ```
 
 ## API Endpoints
