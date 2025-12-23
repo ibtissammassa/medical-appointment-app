@@ -42,8 +42,12 @@ Clone the repository and start the services using **Docker Compose**.
 ```bash
 git clone https://github.com/ibtissammassa/medical-appointment-app.git
 cd medical-appointment-app
-docker-compose up -d --build
+docker-compose up --build
 ```
+
+This will start:
+- Laravel application on `http://localhost:8000`
+- PostgreSQL database on port 5432
 
 Copy the environment file and configure database settings:
 
@@ -64,13 +68,13 @@ DB_PASSWORD=secret
 
 ```
 
-### 2. Backend Initialization
-
-Install PHP dependencies using Composer:
+Generate APP_KEY (optional):
 
 ```bash
-docker-compose exec app composer install
+docker-compose exec app php artisan key:generate
 ```
+
+### 2. Backend Initialization
 
 Create the database tables:
 
