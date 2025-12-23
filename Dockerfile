@@ -19,11 +19,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www
 
-# Copy your Laravel app into container (optional for first build)
-# COPY ./backend /var/www
-
 # Expose Laravel dev server port
 EXPOSE 8000
 
 # Start Laravel development server
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD ["sh", "-c", "composer install && php artisan serve --host=0.0.0.0 --port=8000"]
