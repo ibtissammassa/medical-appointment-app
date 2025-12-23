@@ -33,12 +33,16 @@ export default function BookingForm({ doctor }) {
       });
 
       setMessage("✅ Appointment booked successfully");
+      // Clear message after 3 seconds
+      setTimeout(() => setMessage(""), 3000);
     } catch (err) {
       if (err.status === 409) {
         setMessage("❌ Slot already booked");
       } else {
         setMessage("❌ Something went wrong");
       }
+      // Clear message after 3 seconds
+      setTimeout(() => setMessage(""), 3000);
     } finally {
       setBooking(false);
     }

@@ -19,7 +19,7 @@ public function store(Request $request)
             $end = $start->copy()->addMinutes(30);
 
             $existing = Appointment::where('doctor_id', $request->doctor_id)
-                ->where('start_time', $start)
+                ->where('start_time', $start->toDateTimeString())
                 ->lockForUpdate()
                 ->first();
 
@@ -30,8 +30,8 @@ public function store(Request $request)
             return Appointment::create([
                 'doctor_id' => $request->doctor_id,
                 'patient_name' => 'Demo Patient',
-                'start_time' => $start,
-                'end_time' => $end,
+                'start_time' => $start->toDateTimeString(),
+                'end_time' => $end->toDateTimeString(),
                 'status' => 'booked',
             ]);
         });
