@@ -3,10 +3,17 @@ import { fetchDoctors } from "../api/doctors";
 
 export default function DoctorsList({ onSelect }) {
   const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchDoctors().then(setDoctors);
+    fetchDoctors()
+      .then(setDoctors)
+      .finally(() => setLoading(false));
   }, []);
+
+  if (loading) {
+    return <p>Loading doctors...</p>;
+  }
 
   return (
     <div>

@@ -7,18 +7,24 @@ export default function BookingForm({ doctor }) {
   const [slots, setSlots] = useState([]);
   const [selectedSlot, setSelectedSlot] = useState("");
   const [message, setMessage] = useState("");
+  const [loadingSlots, setLoadingSlots] = useState(false);
+  const [booking, setBooking] = useState(false);
 
   useEffect(() => {
     if (!date) return;
 
-    fetchAvailability(doctor.id, date).then((data) => {
-      setSlots(data);
-      setSelectedSlot("");
-    });
+    setLoadingSlots(true);
+    fetchAvailability(doctor.id, date)
+      .then((data) => {
+        setSlots(data);
+        setSelectedSlot("");
+      })
+      .finally(() => setLoadingSlots(false));
   }, [date, doctor.id]);
 
   async function book() {
     setMessage("");
+    setBooking(true);
 
     try {
       await createAppointment({
@@ -33,6 +39,8 @@ export default function BookingForm({ doctor }) {
       } else {
         setMessage("❌ Something went wrong");
       }
+    } finally {
+      setBooking(false);
     }
   }
 
@@ -52,7 +60,9 @@ export default function BookingForm({ doctor }) {
       </div>
 
       {/* Slots */}
-      {slots.length > 0 && (
+      {loadingSlots && <p>Loading available slots...</p>}
+
+      {!loadingSlots && slots.length > 0 && (
         <div>
           <h4>Available slots</h4>
           <div className="list">
@@ -69,10 +79,16 @@ export default function BookingForm({ doctor }) {
         </div>
       )}
 
+      {!loadingSlots && date && slots.length === 0 && (
+        <p>No available slots for this date.</p>
+      )}
+
       {/* Book */}
       {selectedSlot && (
         <div style={{ marginTop: 15 }}>
-          <button onClick={book}>Confirm booking</button>
+          <button onClick={book} disabled={booking}>
+            {booking ? "Booking..." : "Confirm booking"}
+          </button>
         </div>
       )}
 
