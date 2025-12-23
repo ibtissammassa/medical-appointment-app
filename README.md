@@ -96,6 +96,13 @@ npm install
 npm run dev
 ```
 
+The frontend will be available at `http://localhost:5173` (default Vite port).
+
+## Usage
+- Backend API: `http://localhost:8000`
+- Frontend Client: `http://localhost:5173`
+- Database: `localhost:5432` (accessible from host for development tools)
+  
 ## API Endpoints
 
 | Method   | Endpoint                                         | Description                                          | Required Logic                                                |
@@ -103,3 +110,10 @@ npm run dev
 | **GET**  | `/api/doctors`                                   | Return a JSON list of all doctors.                   | Basic index fetch.                                            |
 | **GET**  | `/api/doctors/{id}/availability?date=YYYY-MM-DD` | Dynamically calculate 30-minute slots (09:00-17:00). | Filter out already booked slots.                              |
 | **POST** | `/api/appointments`                              | **CRITICAL:** Book a specific appointment slot.      | Use database transactions and explicit locking for atomicity. |
+
+## Troubleshooting
+
+- Ensure Docker is running before starting services
+- Check container logs: `docker-compose logs`
+- Verify environment variables in `backend/.env`
+- Make sure ports 8000, 5432, and 5173 are available
