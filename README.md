@@ -45,6 +45,25 @@ cd medical-appointment-app
 docker-compose up -d --build
 ```
 
+Copy the environment file and configure database settings:
+
+```bash
+cp backend/.env.example backend/.env
+```
+
+Edit `backend/.env` and update the database configuration to use PostgreSQL:
+
+```env
+
+DB_CONNECTION=pgsql
+DB_HOST=db
+DB_PORT=5432
+DB_DATABASE=clinic
+DB_USERNAME=clinic_user
+DB_PASSWORD=secret
+
+```
+
 ### 2. Backend Initialization
 
 Run migrations to set up the schema and seed the database with initial doctor data.
