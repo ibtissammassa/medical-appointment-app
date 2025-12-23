@@ -66,11 +66,22 @@ DB_PASSWORD=secret
 
 ### 2. Backend Initialization
 
-Run migrations to set up the schema and seed the database with initial doctor data.
+Install PHP dependencies using Composer:
 
 ```bash
 docker-compose exec app composer install
-docker-compose exec app php artisan migrate --seed
+```
+
+Create the database tables:
+
+```bash
+docker-compose exec app php artisan migrate
+```
+
+Populate the database with sample data (Optional):
+
+```bash
+docker-compose exec app php artisan db:seed
 ```
 
 ### 3. Frontend Initialization
